@@ -85,3 +85,5 @@ ngrok
 ngrok config add-authtoken XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ngrok http http://localhost:8080
+
+ngrok http --url baz.ngrok.dev 8080                           # port 8080 available at baz.ngrok.dev
