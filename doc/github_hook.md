@@ -1,6 +1,6 @@
 To set up an automated **`git pull`** on your server whenever you push to the main branch on GitHub, you can use GitHub’s **webhooks** combined with a **post-receive Git hook** on your server. This will trigger the `git pull` operation automatically on your server after any new commits are pushed to the main branch.
 
-Here’s how to set it up:  
+Here’s how to set it up:
 
 ### Step 1: Set Up a GitHub Webhook
 
@@ -10,7 +10,7 @@ Here’s how to set it up:
 4. Set **Content type** to `application/json`.
 5. In the **Secret** field, you can add a unique key that will secure your webhook (optional but recommended).
 6. Under **Which events would you like to trigger this webhook?**, select **Just the push event**.
-7. Click **Add webhook**.      
+7. Click **Add webhook**.  
 
 ### Step 2: Create a Server Endpoint to Listen for the Webhook
 
