@@ -58,6 +58,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     await update.message.reply_text(welcome_message, reply_markup=reply_markup)
 
+@with_log_admin
 async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle button callbacks."""
     query = update.callback_query
@@ -104,6 +105,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif query.data == 'main_menu':
         await start(update, context)
 
+@with_log_admin
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle user messages."""
     if not update.message or not update.message.text:
@@ -122,6 +124,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     await update.message.reply_text(message, reply_markup=reply_markup, parse_mode='Markdown')
 
+@with_log_admin
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Send help message when the command /help is issued."""
     help_text = (
