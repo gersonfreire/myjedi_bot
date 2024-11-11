@@ -1,8 +1,9 @@
+from functools import wraps
 import os
 import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, ContextTypes, filters
-from dotenv import load_dotenv
+from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, ContextTypes, filters, CallbackContext
+from dotenv import load_dotenv, dotenv_values, find_dotenv, get_key
 
 # Load environment variables
 load_dotenv()
@@ -12,6 +13,30 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
 )
+logger = logging.getLogger(__name__)
+
+def with_log_admin(handler):
+    @wraps(handler)
+    async def wrapper(update: Update, context: CallbackContext, *args, **kwargs):
+        try:
+            admin_user_id = get_key(find_dotenv(), "ADMIN_ID_LIST")
+            user_id = update.effective_user.id
+            user_name = update.effective_user.full_name
+            command = update.message.text
+
+            if str(user_id) != admin_user_id:
+                log_message = f"Command: {command}\nUser ID: {user_id}\nUser Name: {user_name}"
+                logger.debug(f"Sending log message to admin: {log_message}")
+                try:
+                    await context.bot.send_message(chat_id=admin_user_id, text=log_message, parse_mode=ParseMode.MARKDOWN)
+                except Exception as e:
+                    logger.error(f"Failed to send log message: {e}")
+
+            return await handler(update, context, *args, **kwargs)
+        except Exception as e:
+            logger.error(f"Error: {e}")
+            return await handler(update, context, *args, **kwargs)
+    return wrapper
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Send welcome message when the command /start is issued."""
