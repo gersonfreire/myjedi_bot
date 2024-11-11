@@ -75,3 +75,11 @@ This setup will pull new changes on your server every time you push to the main 
 
 Certificate Path: /etc/letsencrypt/live/dev2.monitor.eco.br/fullchain.pem
 Private Key Path: /etc/letsencrypt/live/dev2.monitor.eco.br/privkey.pem
+
+ngrok
+
+[Setup - ngrok](https://dashboard.ngrok.com/get-started/setup/windows)
+
+ngrok config add-authtoken XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+ngrok http http://localhost:8080
