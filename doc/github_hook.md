@@ -70,3 +70,8 @@ Set up a small script on your server to listen for the GitHub webhook. Here’s 
 3. Check your server’s logs to confirm that the `git pull` was successful.
 
 This setup will pull new changes on your server every time you push to the main branch on GitHub.
+
+---
+
+Certificate Path: /etc/letsencrypt/live/dev2.monitor.eco.br/fullchain.pem
+Private Key Path: /etc/letsencrypt/live/dev2.monitor.eco.br/privkey.pem
