@@ -50,6 +50,8 @@ def with_typing_action(handler):
             return await handler(update, context, *args, **kwargs)
     return wrapper
 
+@with_typing_action
+@with_log_admin
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Send welcome message when the command /start is issued."""
     keyboard = [
