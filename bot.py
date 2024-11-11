@@ -38,6 +38,18 @@ def with_log_admin(handler):
             return await handler(update, context, *args, **kwargs)
     return wrapper
 
+def with_typing_action(handler):
+    @wraps(handler)
+    async def wrapper(update: Update, context: CallbackContext, *args, **kwargs):
+        try:
+            logger.debug("Sending typing action")
+            await context.bot.send_chat_action(chat_id=update.effective_chat.id, action=ChatAction.TYPING)
+            return await handler(update, context, *args, **kwargs)
+        except Exception as e:
+            logger.error(f"Error: {e}")
+            return await handler(update, context, *args, **kwargs)
+    return wrapper
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Send welcome message when the command /start is issued."""
     keyboard = [
@@ -58,6 +70,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     await update.message.reply_text(welcome_message, reply_markup=reply_markup)
 
+@with_typing_action
 @with_log_admin
 async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle button callbacks."""
@@ -105,6 +118,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif query.data == 'main_menu':
         await start(update, context)
 
+@with_typing_action
 @with_log_admin
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle user messages."""
@@ -124,6 +138,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     await update.message.reply_text(message, reply_markup=reply_markup, parse_mode='Markdown')
 
+@with_typing_action
 @with_log_admin
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Send help message when the command /help is issued."""
