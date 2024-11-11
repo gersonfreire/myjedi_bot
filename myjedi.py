@@ -3,7 +3,7 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
 # Set your API keys
-TELEGRAM_BOT_TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'
+DEFAULT_BOT_TOKEN = 'DEFAULT_BOT_TOKEN'
 OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY'
 openai.api_key = OPENAI_API_KEY
 
@@ -81,7 +81,7 @@ async def handle_approval(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # Main function to set up the bot
 async def main():
-    app = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
+    app = Application.builder().token(DEFAULT_BOT_TOKEN).build()
 
     # Command and message handlers
     app.add_handler(CommandHandler("start", start))

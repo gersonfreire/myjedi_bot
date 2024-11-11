@@ -12,7 +12,7 @@ A Telegram bot that helps entrepreneurs transform their ideas into reality using
 2. Create a `.env` file and add your Telegram bot token:
 
    ```
-   TELEGRAM_BOT_TOKEN=your_bot_token_here
+   DEFAULT_BOT_TOKEN=your_bot_token_here
    ```
 3. Run the bot:
 
