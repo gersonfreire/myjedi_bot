@@ -51,3 +51,4 @@ htmlcov/
 coverage.xml
 *.cover
 .pytest_cache/
+doc/github_hook.md
