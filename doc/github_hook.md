@@ -14,7 +14,7 @@ Here’s how to set it up:
 
 ### Step 2: Create a Server Endpoint to Listen for the Webhook
 
-Set up a small script on your server to listen for the GitHub webhook. Here’s an example using **Python** and **Flask** to listen for incoming webhook requests and trigger the `git pull` command.
+Set up a small script on your server to listen for the GitHub webhook. Here’s an example using **Python** and **Flask** to listen for incoming webhook requests and trigger the `git pull` command.  
 
 1. Install **Flask** on your server if you haven’t already:
 
