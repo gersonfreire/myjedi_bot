@@ -73,6 +73,8 @@ This setup will pull new changes on your server every time you push to the main 
 
 ---
 
+https://mydomain.com:9000/postreceive
+
 Certificate Path: /etc/letsencrypt/live/dev2.monitor.eco.br/fullchain.pem
 Private Key Path: /etc/letsencrypt/live/dev2.monitor.eco.br/privkey.pem
 
