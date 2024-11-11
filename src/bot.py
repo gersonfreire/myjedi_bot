@@ -226,6 +226,20 @@ async def cmd_git(update: Update, context: CallbackContext):
         logger.error(f"Error: {e}")
         await update.message.reply_text(f"An error occurred: {e}")
 
+@with_typing_action
+@with_log_admin
+async def restart_bot(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        await update.message.reply_text("_Restarting..._", parse_mode=ParseMode.MARKDOWN)
+        args = sys.argv[:]
+        args.insert(0, sys.executable)
+        os.chdir(os.getcwd())
+        os.execv(sys.executable, args)
+        
+    except Exception as e:
+        logger.error(f"Error restarting bot: {e}")
+        await update.message.reply_text(f"An error occurred while restarting the bot: {e}")
+ 
 def main():
     """Start the bot."""
  
