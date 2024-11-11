@@ -1,6 +1,7 @@
 from functools import wraps
 import os
 import logging
+import dotenv
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ParseMode
 from telegram.constants import ChatAction
@@ -242,6 +243,8 @@ async def restart_bot(update: Update, context: ContextTypes.DEFAULT_TYPE):
  
 def main():
     """Start the bot."""
+    
+    admin_id_list = dotenv.get_key(dotenv.find_dotenv(), "ADMIN_ID_LIST")    
  
     # Create the Application
     application = Application.builder().token(os.getenv('DEFAULT_BOT_TOKEN')).build()
@@ -250,6 +253,13 @@ def main():
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CallbackQueryHandler(button_callback))
+    
+    git_handler = CommandHandler('git', cmd_git, filters=filters.User(user_id=int(admin_id_list)))
+    application.add_handler(git_handler)   
+
+    restart_handler = CommandHandler('restart', restart_bot, filters=filters.User(user_id=int(admin_id_list)))
+    application.add_handler(restart_handler)  
+        
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
     # Start the Bot
