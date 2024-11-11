@@ -111,6 +111,8 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def main():
     """Start the bot."""
     # Create the Application
+    # 'Updater' object has no attribute '_Updater__polling_cleanup_cb' and no __dict__ for setting new attributes
+    # pip install --upgrade python-telegram-
     application = Application.builder().token(os.getenv('DEFAULT_BOT_TOKEN')).build()
 
     # Add handlers
