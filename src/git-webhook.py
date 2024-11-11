@@ -21,7 +21,8 @@ def git_webhook():
     payload = request.json
     if payload.get('ref') == 'refs/heads/main':  # Trigger only on main branch push
         # Run git pull
-        os.system('cd /path/to/your/repo && git pull origin main')
+        # os.system('cd /path/to/your/repo && git pull origin main')
+        os.system('git pull origin main')
         return 'Pulled successfully', 200
     return 'Not a main branch push', 400
 
