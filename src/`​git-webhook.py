@@ -10,7 +10,7 @@ def verify_signature(data, signature):
     mac = hmac.new(SECRET_TOKEN.encode(), data, hashlib.sha256).hexdigest()
     return hmac.compare_digest(f'sha256={mac}', signature)
 
-@app.route('/git-webhook', methods=['POST'])
+@app.route('/git-webhook', methods=['POST','GET'])
 def git_webhook():
     signature = request.headers.get('X-Hub-Signature-256')
     if SECRET_TOKEN and not verify_signature(request.data, signature):
